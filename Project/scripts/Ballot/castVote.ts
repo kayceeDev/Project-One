@@ -44,7 +44,7 @@ async function main() {
     console.log("This user already voted");
     return;
   }
-  const tx = await ballotContract.vote(1);
+  const tx = await ballotContract.vote(proposalToVote);
   console.log(`Vote completed! for ${chairpersonAddress}`);
   console.log("Awaiting confirmations");
   await tx.wait();
