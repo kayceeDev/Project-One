@@ -57,11 +57,15 @@ async function main() {
     throw new Error("You already voted.");
   }
 
-  // TODO: EXECUTE THIS CONDITION ONLY IF DELEGATOR ADDRESS != 0
-  // if (toAddressProps.delegate === delegatorAddressProps.delegate) {
-  //   throw new Error("Found loop in delegation.");
-  // }
-
+  // CHECK IF ADDRRESS IS NULL
+  const nullAddress = /^0x000000*$/.test(toAddressProps.delegate);
+  // EXECUTE THIS CONDITION ONLY IF DELEGATOR ADDRESS IS NOT NULL
+  if (
+    !nullAddress &&
+    toAddressProps.delegate === delegatorAddressProps.delegate
+  ) {
+    throw new Error("Found loop in delegation.");
+  }
   console.log(`Delegating vote to ${toAddress}`);
 
   const tx = await ballotContract.delegate(toAddress);
